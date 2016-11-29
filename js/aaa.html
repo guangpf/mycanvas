@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<script>
+    window.onload=function(){
+        var can=document.getElementsByTagName('canvas')[0];
+        var cobj=can.getContext('2d');
+        cobj.beginPath();
+        cobj.fillStyle='red';
+        cobj.rect(0,0,500,500);
+        cobj.fill();
+
+        can.onmousedown= function (e) {
+            var sX= e.clientX;
+            var sY= e.clientY;
+
+            can.onmousemove=function(e){
+                var eX= e.clientX;
+                var eY= e.clientY;
+                cobj.save();
+                cobj.beginPath();
+                cobj.arc(eX,eY,15,0,Math.PI*2,false);
+                cobj.clip();
+                cobj.clearRect(0,0,500,500);
+                cobj.restore();
+            }
+            can.onmouseup=function(){
+
+
+                can.onmousemove=null;
+                can.onmouseup=null;
+            }
+        }
+
+    }
+</script>
+<style>
+    canvas{
+        background: #ccc;
+    }
+</style>
+<body>
+<canvas width="500px" height="500px">
+    
+</canvas>
+</body>
+</html>
